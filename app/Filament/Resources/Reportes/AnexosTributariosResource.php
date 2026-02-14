@@ -1,0 +1,85 @@
+<?php
+
+namespace App\Filament\Resources\Reportes;
+
+use App\Filament\Clusters\InformesContabilidad;
+use App\Filament\Resources\Reportes\AnexosTributariosResource\Pages;
+use App\Filament\Resources\Reportes\AnexosTributariosResource\RelationManagers;
+use App\Models\AnexosTributarios;
+use App\Models\Puc;
+use Filament\Forms;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Form;
+use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
+
+class AnexosTributariosResource extends Resource
+{
+    protected static ?string $model = AnexosTributarios::class;
+    protected static ?string    $cluster = InformesContabilidad::class;
+    protected static ?string    $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string    $navigationLabel = 'Anexos Tributarios';
+    protected static ?string    $modelLabel = 'Anexos Tributarios';
+
+
+
+    public static function form(Form $form): Form
+    {
+        return $form
+            ->schema([
+                DatePicker::make('fecha_inicial')->label('Fecha Inicial')->native(false)->format('d/m/Y'),
+                DatePicker::make('fecha_final')->label('Fecha Final')->native(false)->format('d/m/Y'),
+                Select::make('cuenta_inicial')
+                ->native(false)
+                ->searchable()
+                ->options(Puc::all(['id','puc'])->pluck('puc', 'id')->toArray()),
+                Select::make('cuenta_final')
+                ->native(false)
+                ->searchable()
+                ->options(Puc::all(['id','puc'])->pluck('puc', 'id')->toArray()),
+            ]);
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+
+        ];
+    }
+
+
+        public static function table(Table $table): Table
+    {
+        return $table
+->heading('Anexos Tributarios')
+->description(
+    'Prepare y descargue los anexos tributarios necesarios para el cumplimiento de las obligaciones fiscales.'
+)
+->emptyStateIcon('heroicon-o-document-text') // Icono de documento para informes oficiales
+->emptyStateHeading('No se han encontrado datos para el anexo tributario.')
+->emptyStateDescription('Verifique que los movimientos y datos contables requeridos estén registrados en el sistema.')
+
+
+            ->actions([
+                Tables\Actions\EditAction::make(),
+            ])
+            ->bulkActions([
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
+                ]),
+            ]);
+    }
+
+
+
+    public static function getPages(): array
+    {
+        return [
+            'index' => Pages\CreateAnexosTributarios::route('/')
+        ];
+    }
+}

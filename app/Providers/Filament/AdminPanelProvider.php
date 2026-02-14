@@ -1,0 +1,134 @@
+<?php
+
+namespace App\Providers\Filament;
+
+use Filament\Http\Middleware\Authenticate;
+use Filament\Http\Middleware\DisableBladeIconComponents;
+use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Pages;
+use Filament\Panel;
+use Filament\PanelProvider;
+use Filament\Navigation\NavigationGroup;
+use Filament\Support\Colors\Color;
+use Filament\Widgets;
+use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
+use Illuminate\Cookie\Middleware\EncryptCookies;
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
+use Illuminate\Routing\Middleware\SubstituteBindings;
+use Illuminate\Session\Middleware\AuthenticateSession;
+use Illuminate\Session\Middleware\StartSession;
+use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Filament\Support\Enums\MaxWidth;
+use Althinect\FilamentSpatieRolesPermissions\FilamentSpatieRolesPermissionsPlugin;
+use App\Filament\Widgets\AdvancedStatsOverviewWidget;
+use App\Filament\Widgets\TableroLogo;
+use App\Http\Middleware\isAdminMiddleware;
+use pxlrbt\FilamentSpotlight\SpotlightPlugin;
+use Joaopaulolndev\FilamentGeneralSettings\FilamentGeneralSettingsPlugin;
+
+class AdminPanelProvider extends PanelProvider
+{
+    public function panel(Panel $panel): Panel
+    {
+        return $panel
+            ->default()
+            ->id('admin')
+            ->path('')
+            ->login()
+            ->passwordReset()
+            ->profile()
+            ->maxContentWidth(MaxWidth::ScreenExtraLarge)
+            ->font('Roboto')
+            ->authGuard('web')
+            ->collapsibleNavigationGroups()
+            ->sidebarFullyCollapsibleOnDesktop()
+            ->brandName('Siam ERP')
+            ->brandLogo(asset('images/Icons.png'))
+            ->darkModeBrandLogo(asset('images/Icons1.png'))
+            ->brandLogoHeight('3rem')
+            ->favicon(asset('images/Icons.png'))
+            ->navigationGroups([
+
+                NavigationGroup::make('Administracion de Terceros')
+                    ->label('Administracion de Terceros')
+                    ->collapsed(),
+                NavigationGroup::make('Contabilidad')
+                    ->label('Contabilidad')
+                    ->collapsed(),
+                NavigationGroup::make('Gestión de Asociados')
+                    ->label('Gestión de Asociados')
+                    ->collapsed(),
+                NavigationGroup::make('Tesoreria')
+                    ->label('Tesoreria')
+                    ->collapsed(),
+                NavigationGroup::make('Solidaridad y Bienestar')
+                    ->label('Solidaridad y Bienestar')
+                    ->collapsed(),
+                NavigationGroup::make('Comunicación Externa')
+                    ->label('Comunicación Externa')
+                    ->collapsed(),
+                NavigationGroup::make('Gestion Documental')
+                    ->label('Gestion Documental')
+                    ->collapsed(),
+                NavigationGroup::make('Informes de Cumplimiento')
+                    ->label('Informes de Cumplimiento')
+                    ->collapsed(),
+                NavigationGroup::make('Roles y Permisos')
+                    ->label('Roles y Permisos')
+                    ->collapsed(),
+                NavigationGroup::make('Configuración General')
+                    ->label('Configuración General')
+                    ->collapsed(),
+            ])
+            ->colors([
+                'primary' => Color::Emerald,
+                'success' => Color::Green,
+                'danger' => Color::Rose,
+                'warning' => Color::Amber,
+                'info' => Color::Teal,
+                'secondary' => Color::Slate,
+                'gray' => Color::Gray,
+                'Slate' => Color::Slate,
+
+            ])
+            ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
+            ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
+            ->discoverClusters(in: app_path('Filament/Clusters'), for: 'App\\Filament\\Clusters')
+            ->pages([
+                Pages\Dashboard::class,
+            ])
+            ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
+            ->widgets([
+                TableroLogo::class,
+                Widgets\AccountWidget::class,
+                AdvancedStatsOverviewWidget::class,
+            ])
+            ->middleware([
+                EncryptCookies::class,
+                AddQueuedCookiesToResponse::class,
+                StartSession::class,
+                AuthenticateSession::class,
+                ShareErrorsFromSession::class,
+                VerifyCsrfToken::class,
+                SubstituteBindings::class,
+                DisableBladeIconComponents::class,
+                DispatchServingFilamentEvent::class,
+            ])
+            ->authMiddleware([
+                Authenticate::class,
+                isAdminMiddleware::class,
+            ])
+            ->databaseNotifications()
+            ->spa()
+            ->plugins([
+                FilamentSpatieRolesPermissionsPlugin::make(),
+                SpotlightPlugin::make(),
+                FilamentGeneralSettingsPlugin::make()
+                    ->canAccess(fn() => auth()->user()->id === 10)
+                    ->setNavigationGroup('Configuración General')
+                    ->setIcon('heroicon-o-cog')
+                    ->setTitle('Ajustes Generales')
+                    ->setNavigationLabel('Ajustes Generales')
+            ]);
+    }
+}
