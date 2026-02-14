@@ -34,7 +34,7 @@ class AsociadoPanelProvider extends PanelProvider
     {
         return $panel
             ->id('asociado')
-            ->path('asociado')
+            ->path('')
             ->login()
             ->passwordReset()
             ->profile(isSimple: false)
