@@ -1,76 +1,43 @@
-# Proyecto AutoPradaApp
+Proyecto SiamERP_Asociados
+SiamERP_Asociados es la extensión digital diseñada exclusivamente para los integrantes de fondos de empleados. Esta plataforma permite a cada asociado gestionar su información personal, monitAorear su estado financiero dentro de la entidad y mantener un canal de comunicación directo y constante con la dirección, eliminando barreras burocráticas y optimizando la transparencia.
 
-Una app de gestión para un taller de carros, herramienta digital diseñada para optimizar y automatizar las operaciones diarias del taller. Esta app proporciona una plataforma integral que permite a los propietarios de talleres y sus empleados gestionar citas, inventarios, facturación, clientes y tareas de reparación de manera eficiente y organizada.
+    # Características Principales
+👤 Autogestión de Perfil
+Actualización de Datos: Módulo para que el asociado mantenga al día su información de contacto, datos familiares y beneficiarios en tiempo real.
 
-## Características Principales
+Seguridad de Cuenta: Gestión de credenciales y doble factor de autenticación para proteger la información sensible.
 
-Panel de Control Principal
+💰 Consulta de Estados Financieros
+Saldos de Ahorros: Visualización detallada de ahorros obligatorios, voluntarios y permanentes.
 
-** Vista General: Un dashboard que muestra un resumen de las actividades diarias, como citas programadas, reparaciones en curso, ingresos diarios, y alertas importantes.
-** Notificaciones: Alertas para citas próximas, piezas de inventario bajas, y tareas pendientes.
+Extractos de Crédito: Consulta de saldos de deuda, cuotas pendientes, tasas de interés y fechas de próximo pago.
 
-Gestión de Citas
-**Programación Citas: Herramientas para agendar, modificar y cancelar citas.Integración con calendario que muestra las citas pendientes.
-** Recordatorios Automáticos: Envío de recordatorios por SMS o correo electrónico a los clientes sobre sus próximas citas.
+Historial de Transacciones: Registro histórico de aportes, retiros y abonos realizados.
 
-Gestión de Clientes
-** Base de Datos de Clientes: Registro detallado de los clientes, información de contacto, historial de reparaciones y preferencias.
-** Seguimiento de Historial de Vehículos: Historial completo de servicios y reparaciones realizados a cada vehículo.
+💬 Canal de Comunicación y Participación
+Buzón de Dirección: Sistema de mensajería directa para enviar solicitudes, sugerencias o inquietudes a los directivos.
 
-Gestión de Inventario
+Notificaciones y Circulares: Panel de noticias para estar al tanto de asambleas, eventos, beneficios y decisiones administrativas.
 
-** Control de Stock: Monitoreo en tiempo real del inventario de piezas y suministros.
-** Alertas de Reabastecimiento: Notificaciones automáticas cuando los niveles de inventario caen por debajo de un umbral establecido.
-\*\* Pedidos a Proveedores: Posibilidad de realizar pedidos directamente desde la app a los proveedores.
+Encuestas y Votaciones: Herramienta participativa para la toma de decisiones colectivas del fondo.
 
-Gestión de Reparaciones
+📑 Solicitudes en Línea
+Certificados: Descarga automática de certificados de afiliación y de saldos para declaración de renta.
 
-** Órdenes de Trabajo: Creación y seguimiento de órdenes de trabajo detalladas para cada reparación o servicio.
-** Asignación de Tareas: Asignación de tareas específicas a mecánicos y seguimiento del progreso.
-\*\* Historial de Reparaciones: Registro de todas las reparaciones y servicios realizados, accesible para referencia futura.
+Pre-solicitud de Créditos: Simulador y radicación digital de solicitudes de crédito según la capacidad de endeudamiento.
 
-Facturación y Pagos
+    # Estructura Técnica
+Backend - Laravel & Postgrest
+Laravel: Framework de PHP robusto para la lógica de negocio y seguridad.
 
-** Generación de Facturas: Creación de facturas detalladas para clientes, con posibilidad de personalización.
-** Pagos: Integración con sistemas de pago electrónico para facilitar el cobro a los clientes.
-\*\* Historial de Pagos: Registro de todas las transacciones financieras.
+MySQL: Motor de base de datos relacional para la integridad de los datos financieros.
 
-Gestión de Empleados
+Frontend - Blade, Tailwind CSS & Bootstrap
+Tailwind CSS: Para un diseño de interfaz de usuario moderno, limpio y profesional.
 
-** Registro de Empleados: Base de datos con información detallada de cada empleado, incluyendo horarios y especialidades.
-** Control de Asistencia: Sistema para registrar y monitorear la asistencia y horas trabajadas por los empleados.
+Bootstrap: Componentes responsivos para asegurar que el asociado pueda consultar su saldo desde cualquier móvil.
 
-Reportes y Análisis
-
-** Generación de Reportes: Reportes detallados sobre el rendimiento del taller, ingresos, gastos, y productividad de los empleados.
-** Análisis de Datos: Herramientas para analizar tendencias y tomar decisiones informadas para mejorar la eficiencia y rentabilidad del taller.
-
-## Estructura del Proyecto
-
--Backend - Node.js con MySQL
--Node.js: Plataforma de desarrollo de aplicaciones del lado del servidor.
--Express.js: Framework web para Node.js.
--MySQL: Sistema de gestión de bases de datos relacional.
-
-Frontend - Tailwind CSS y Bootstrap
--Tailwind CSS: Framework de CSS para diseño de interfaces modernas y personalizables.
--Bootstrap: Framework CSS para el desarrollo rápido y responsivo de aplicaciones web.
-
-## Instalación
-
-1. Clona el repositorio: `git clone https://github.com/DiegoQuevedoTIC/AutoPradaApp.git`
-2. Instalar gestor de paquetes: `composer install`
-3. Instala las dependencias: `npm install` and `npm install` and `npm run build` and `npm run dev`
-4. Migrar base de datos: `php artisan migrate`
-5. Enjoy
-
-## Configuración
-
-1. Crea un archivo de configuración `.env` lista de variables de ambiente necesarias
-2. Agrega las configuraciones necesarias como las credenciales de la base de datos y cualquier otra información sensible.
-
-## Author
-
+Autor
 Diego Andres Quevedo Perez
-Cel 3142945549
-Siam Software Design\_
+Cel: 3142945549
+Siam Software Design
