@@ -25,8 +25,6 @@ use App\Filament\Widgets\TableroLogo;
 use App\Http\Middleware\isAsociadoMiddleware;
 use Filament\Navigation\NavigationItem;
 use Filament\Pages\Dashboard;
-use Swis\Filament\Backgrounds\FilamentBackgroundsPlugin;
-use App\helper\MyImages;
 
 class AsociadoPanelProvider extends PanelProvider
 {
@@ -103,12 +101,27 @@ class AsociadoPanelProvider extends PanelProvider
             ])
             ->plugins([
                 FilamentOtpLoginPlugin::make()
-                        ->loginPage(AuthLoginAsociado::class),
-                FilamentBackgroundsPlugin::make()
-                    ->imageProvider(
-                        MyImages::make()
-
-                    ),
-            ])->breadcrumbs(false);
+                    ->loginPage(AuthLoginAsociado::class),
+            ])
+            ->breadcrumbs(false)
+            ->renderHook(
+                'panels::body.start',
+                fn() => '<style>
+                            body {
+                                background-image: url("' . asset('images/backgrounds/fondep_background_2026.jpg') . '");
+                                background-size: cover;
+                                background-position: center center;
+                                background-repeat: no-repeat;
+                                background-attachment: fixed;
+                                min-height: 100vh;
+                            }
+                            @media (max-width: 768px) {
+                                body {
+                                    background-position: center top;
+                                    background-attachment: scroll;
+                                }
+                        }
+                        </style>'
+            );
     }
 }
